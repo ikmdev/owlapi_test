@@ -19,10 +19,12 @@ import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Consumer;
+//import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,10 +37,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
-import com.carrotsearch.hppcrt.cursors.ObjectCursor;
-import com.carrotsearch.hppcrt.maps.ObjectObjectHashMap;
-import com.carrotsearch.hppcrt.procedures.ObjectProcedure;
-import com.carrotsearch.hppcrt.sets.ObjectHashSet;
+//import com.carrotsearch.hppcrt.cursors.ObjectCursor;
+//import com.carrotsearch.hppcrt.maps.ObjectObjectHashMap;
+//import com.carrotsearch.hppcrt.procedures.ObjectProcedure;
+//import com.carrotsearch.hppcrt.sets.ObjectHashSet;
 
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
@@ -63,7 +65,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     protected final Internals i;
     private SoftReference<Set<IRI>> iris;
     private int size = 0;
-    private final ObjectObjectHashMap<K, Collection<V>> map = new ObjectObjectHashMap<>(17, 0.75F);
+//    private final ObjectObjectHashMap<K, Collection<V>> map = new ObjectObjectHashMap<>(17, 0.75F);
+    private final HashMap<K, Collection<V>> map = new HashMap<>(17, 0.75F);
 
     /**
      * @param t type of axioms contained
@@ -102,21 +105,27 @@ public class MapPointer<K, V extends OWLAxiom> {
         return set.contains(e);
     }
 
-    private Set<IRI> initSet() {
-        Set<IRI> set = CollectionFactory.createSet();
-        Consumer<ObjectCursor<K>> k = q -> consumer(set, q);
-        map.keys().forEach(k);
-        iris = new SoftReference<>(set);
-        return set;
-    }
+	private Set<IRI> initSet() {
+		Set<IRI> set = CollectionFactory.createSet();
+//        Consumer<ObjectCursor<K>> k = q -> consumer(set, q);
+		for (K ks : map.keySet()) {
+			if (ks instanceof OWLEntity) {
+	            set.add(((OWLEntity) ks).getIRI());
+	        } else if (ks instanceof IRI) {
+	            set.add((IRI) ks);
+	        }
+		}
+		iris = new SoftReference<>(set);
+		return set;
+	}
 
-    protected void consumer(Set<IRI> set, ObjectCursor<K> k) {
-        if (k.value instanceof OWLEntity) {
-            set.add(((OWLEntity) k.value).getIRI());
-        } else if (k.value instanceof IRI) {
-            set.add((IRI) k.value);
-        }
-    }
+//    protected void consumer(Set<IRI> set, ObjectCursor<K> k) {
+//        if (k.value instanceof OWLEntity) {
+//            set.add(((OWLEntity) k.value).getIRI());
+//        } else if (k.value instanceof IRI) {
+//            set.add((IRI) k.value);
+//        }
+//    }
 
     /**
      * @return true if initialized
@@ -170,8 +179,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     public synchronized List<K> keySet() {
         init();
         List<K> keySet = new ArrayList<>();
-        ObjectProcedure<K> predicate = keySet::add;
-        map.keys().forEach(predicate);
+//        ObjectProcedure<K> predicate = keySet::add;
+        map.keySet().forEach(el -> keySet.add(el));
         assert keySet != null;
         return keySet;
     }
@@ -361,8 +370,8 @@ public class MapPointer<K, V extends OWLAxiom> {
     @Nonnull
     private List<V> values() {
         List<V> values = new ArrayList<>();
-        ObjectProcedure<? super Collection<V>> p = values::addAll;
-        map.values().forEach(p);
+//        ObjectProcedure<? super Collection<V>> p = values::addAll;
+        map.values().forEach(el -> values.addAll(el));
         return values;
     }
 
@@ -410,27 +419,27 @@ public class MapPointer<K, V extends OWLAxiom> {
 
 
 class HPPCSet<S> implements Collection<S> {
-    private final ObjectHashSet<S> delegate;
+    private final HashSet<S> delegate;
 
     public HPPCSet() {
-        delegate = new ObjectHashSet<>();
+        delegate = new HashSet<>();
     }
 
     public HPPCSet(int initialCapacity) {
-        delegate = new ObjectHashSet<>(initialCapacity);
+        delegate = new HashSet<>(initialCapacity);
     }
 
     public HPPCSet(int initialCapacity, double loadFactor) {
-        delegate = new ObjectHashSet<>(initialCapacity, loadFactor);
+        delegate = new HashSet<>(initialCapacity);
     }
 
     public HPPCSet(Collection<S> container) {
-        delegate = new ObjectHashSet<>(container.size() + 1);
+        delegate = new HashSet<>(container.size() + 1);
         addAll(container);
     }
 
     public HPPCSet(Collection<S> container, S s) {
-        delegate = new ObjectHashSet<>(container.size() + 1);
+        delegate = new HashSet<>(container.size() + 1);
         addAll(container);
         add(s);
     }
@@ -452,19 +461,20 @@ class HPPCSet<S> implements Collection<S> {
 
     @Override
     public Iterator<S> iterator() {
-        final ObjectHashSet<S>.EntryIterator iterator = delegate.iterator();
-        return new Iterator<S>() {
-
-            @Override
-            public boolean hasNext() {
-                return iterator.hasNext();
-            }
-
-            @Override
-            public S next() {
-                return iterator.next().value;
-            }
-        };
+    	return delegate.iterator();
+//        final HashSet<S>.EntryIterator iterator = delegate.iterator();
+//        return new Iterator<S>() {
+//
+//            @Override
+//            public boolean hasNext() {
+//                return iterator.hasNext();
+//            }
+//
+//            @Override
+//            public S next() {
+//                return iterator.next().value;
+//            }
+//        };
     }
 
     @Override
@@ -521,7 +531,8 @@ class HPPCSet<S> implements Collection<S> {
 
     @Override
     public boolean retainAll(@Nullable Collection<?> c) {
-        return delegate.retainAll(new HPPCSet(verifyNotNull(c)).delegate) > 0;
+//        return delegate.retainAll(new HPPCSet(verifyNotNull(c)).delegate) > 0;
+        return delegate.retainAll(new HPPCSet(verifyNotNull(c)).delegate);
     }
 
     @Override

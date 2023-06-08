@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.apache.commons.io.ByteOrderMark;
-import org.apache.commons.io.input.BOMInputStream;
+//import org.apache.commons.io.ByteOrderMark;
+//import org.apache.commons.io.input.BOMInputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDocumentFormat;
 
@@ -43,8 +43,9 @@ public abstract class OWLOntologyDocumentSourceBase implements OWLOntologyDocume
     @Nonnull
     public static InputStream wrap(@Nonnull InputStream delegate) {
         checkNotNull(delegate, "delegate cannot be null");
-        return new BOMInputStream(delegate, ByteOrderMark.UTF_8, ByteOrderMark.UTF_16BE,
-            ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
+//        return new BOMInputStream(delegate, ByteOrderMark.UTF_8, ByteOrderMark.UTF_16BE,
+//            ByteOrderMark.UTF_16LE, ByteOrderMark.UTF_32BE, ByteOrderMark.UTF_32LE);
+        return delegate;
     }
 
     private final OWLDocumentFormat format;

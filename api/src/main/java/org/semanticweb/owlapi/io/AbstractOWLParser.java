@@ -43,7 +43,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.tukaani.xz.XZInputStream;
 import org.xml.sax.InputSource;
 
 /**
@@ -195,9 +194,9 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         if (isGzFileName(fileName)) {
             return new GZIPInputStream(in);
         }
-        if (isXzFileName(fileName)) {
-            return new XZInputStream(in);
-        }
+//        if (isXzFileName(fileName)) {
+//            return new XZInputStream(in);
+//        }
         return in;
     }
 
@@ -214,11 +213,12 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         InputStream is = null;
         InputStream connInputStream = conn.getInputStream();
         if (contentEncoding != null) {
-            if ("xz".equals(contentEncoding)) {
-                LOGGER.info("URL connection input stream is compressed using xz");
-                is = new BufferedInputStream(
-                    checkFileName(fileName, new XZInputStream(connInputStream)));
-            } else if ("gzip".equals(contentEncoding)) {
+//            if ("xz".equals(contentEncoding)) {
+//                LOGGER.info("URL connection input stream is compressed using xz");
+//                is = new BufferedInputStream(
+//                    checkFileName(fileName, new XZInputStream(connInputStream)));
+//            } else
+            if ("gzip".equals(contentEncoding)) {
                 LOGGER.info("URL connection input stream is compressed using gzip");
                 is = new BufferedInputStream(
                     checkFileName(fileName, new GZIPInputStream(connInputStream)));

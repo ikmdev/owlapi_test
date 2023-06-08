@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
+//import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
+import java.util.HashMap;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics Group
@@ -55,7 +56,8 @@ import com.carrotsearch.hppcrt.maps.ObjectIntHashMap;
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     private static final long serialVersionUID = 40000L;
-    static final ObjectIntHashMap<IRI> specialPredicateRanks = initMap();
+//    static final ObjectIntHashMap<IRI> specialPredicateRanks = initMap();
+    static final HashMap<IRI, Integer> specialPredicateRanks = initMap();
     @Nonnull
     private final RDFResource subject;
     @Nonnull
@@ -99,8 +101,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         return new RDFResourceIRI(iri);
     }
 
-    static ObjectIntHashMap<IRI> initMap() {
-        ObjectIntHashMap<IRI> predicates = new ObjectIntHashMap<>();
+    static HashMap<IRI, Integer> initMap() {
+        HashMap<IRI, Integer> predicates = new HashMap<>();
         AtomicInteger nextId = new AtomicInteger(1);
         List<OWLRDFVocabulary> ORDERED_URIS = Arrays.asList(RDF_TYPE, RDFS_LABEL, OWL_DEPRECATED,
             RDFS_COMMENT, RDFS_IS_DEFINED_BY, RDF_FIRST, RDF_REST, OWL_EQUIVALENT_CLASS,
@@ -118,14 +120,16 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         int specialPredicateRank = specialPredicateRanks.get(predicateIRI);
         IRI otherPredicateIRI = otherPredicate.getIRI();
         int otherSpecialPredicateRank = specialPredicateRanks.get(otherPredicateIRI);
-        if (specialPredicateRank != specialPredicateRanks.getDefaultValue()) {
-            if (otherSpecialPredicateRank != specialPredicateRanks.getDefaultValue()) {
+        final int special_predicate_ranks_default_value = 0;
+//        if (specialPredicateRank != specialPredicateRanks.getDefaultValue()) {
+        if (specialPredicateRank != special_predicate_ranks_default_value) {
+            if (otherSpecialPredicateRank != special_predicate_ranks_default_value) {
                 return Integer.compare(specialPredicateRank, otherSpecialPredicateRank);
             } else {
                 return -1;
             }
         } else {
-            if (otherSpecialPredicateRank != specialPredicateRanks.getDefaultValue()) {
+            if (otherSpecialPredicateRank != special_predicate_ranks_default_value) {
                 return +1;
             } else {
                 return predicateIRI.compareTo(otherPredicateIRI);
