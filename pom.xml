@@ -57,19 +57,19 @@
 				<!-- <groupId>com.google.guava</groupId>-->
 				<groupId>dev.ikm.jpms</groupId>
 				<artifactId>guava</artifactId>
-				<version>31.1-jre-r1-SNAPSHOT</version>
+				<version>31.1-jre-r1</version>
 			</dependency>
 			<dependency>
 				<!-- <groupId>javax.inject</groupId>-->
 				<groupId>dev.ikm.jpms</groupId>
 				<artifactId>javax.inject</artifactId>
-				<version>1-r1-SNAPSHOT</version>
+				<version>1-r1</version>
 			</dependency>
 			<dependency>
 				<!-- <groupId>com.google.code.findbugs</groupId>-->
 				<groupId>dev.ikm.jpms</groupId>
 				<artifactId>jsr305</artifactId>
-				<version>3.0.2-r1-SNAPSHOT</version>
+				<version>3.0.2-r1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
