@@ -21,12 +21,14 @@ import org.semanticweb.owlapi.model.PriorityCollectionSorting;
 /**
  * Matthew Horridge Stanford Center for Biomedical Informatics Research 10/04/15
  */
-class Temp implements Serializable {
-
-}
 
 
 class ConcurrentPriorityCollection_TestCase<T extends Serializable> {
+	
+	public static class Temp implements Serializable {
+
+	}
+
 
     private ConcurrentPriorityCollection<Temp> collection;
     private ReadWriteLock readWriteLock = mock(ReadWriteLock.class);
