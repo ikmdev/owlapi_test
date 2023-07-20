@@ -10,7 +10,7 @@
 
 	<groupId>net.sourceforge.owlapi</groupId>
 	<artifactId>owlapi-parent</artifactId>
-	<version>4.5.25-ikm-r1-SNAPSHOT</version>
+	<version>4.5.25-ikm-r1</version>
 	<packaging>pom</packaging>
 
 	<name>OWLAPI</name>
