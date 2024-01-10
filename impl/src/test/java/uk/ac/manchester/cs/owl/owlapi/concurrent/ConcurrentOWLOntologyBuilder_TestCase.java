@@ -33,7 +33,7 @@ class ConcurrentOWLOntologyBuilder_TestCase {
 
     @BeforeEach
     void setUp() {
-
+    	; //
         when(delegateBuilder.createOWLOntology(manager, ontologyId)).thenReturn(ontology);
         when(readWriteLock.readLock()).thenReturn(readLock);
         builder = new ConcurrentOWLOntologyBuilder(delegateBuilder, readWriteLock);

@@ -56,6 +56,7 @@ class ConcurrentOWLOntologyImpl_TestCase {
 
     @BeforeEach
     void setUp() {
+    	; //
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         ontology = spy(new ConcurrentOWLOntologyImpl(delegate, readWriteLock));
