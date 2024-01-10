@@ -72,6 +72,7 @@ class OWLOntologyManager_Concurrent_TestCase {
 
     @BeforeEach
     void setUp() throws OWLOntologyCreationException {
+    	; //
         when(readWriteLock.readLock()).thenReturn(readLock);
         when(readWriteLock.writeLock()).thenReturn(writeLock);
         manager = new OWLOntologyManagerImpl(dataFactory, readWriteLock);

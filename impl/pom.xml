@@ -7,7 +7,7 @@
 	<name>OWLAPI Default Implementation</name>
 
 	<parent>
-		<groupId>net.sourceforge.owlapi</groupId>
+		<groupId>dev.ikm.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
 		<version>4.5.25-ikm-r3-SNAPSHOT</version>
 	</parent>
