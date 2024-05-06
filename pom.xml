@@ -659,11 +659,10 @@
 
 
 	<!-- Parameters for the Source Code Management system. -->
-	<!--	<scm>-->
-	<!--		<connection>scm:git:git://github.com/owlcs/owlapi.git</connection>-->
-	<!--
-	<developerConnection>scm:git:git@github.com:owlcs/owlapi.git</developerConnection>-->
-	<!--		<url>https://github.com/owlcs/owlapi</url>-->
-	<!--	</scm>-->
+	<scm>
+	<connection>scm:git:git://github.com/owlcs/owlapi.git</connection>
+	<developerConnection>scm:git:git@github.com:owlcs/owlapi.git</developerConnection>
+		<url>https://github.com/owlcs/owlapi</url>
+	</scm>
 
 </project>
