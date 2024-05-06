@@ -19,11 +19,13 @@
 		version of the API is focused towards OWL 2</description>
 	<url>http://owlcs.github.io/owlapi/</url>
 
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>21</java.version>
 		<slf4j.version>2.0.7</slf4j.version>
 		<caffeine.version>3.1.8</caffeine.version>
+		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 	</properties>
 
 	<modules>
@@ -44,6 +46,16 @@
 			<url>http://www.gnu.org/licenses/lgpl.txt</url>
 			<distribution>repo</distribution>
 		</license>
+
+		<!-- OSSRH Related License (Start) -->
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+		<!-- OSSRH Related License (End) -->
+
 	</licenses>
 
 	<dependencyManagement>
@@ -125,6 +137,15 @@
 			<name>Ignazio Palmisano</name>
 			<email>ignazio1977@users.sourceforge.net</email>
 		</developer>
+
+		<!-- OSSRH Related Developer (Start) -->
+		<developer>
+			<id>ikmdev</id>
+			<name>IKM Development Team</name>
+			<email>support@ikm.dev</email>
+		</developer>
+		<!-- OSSRH Related Developer (End) -->
+
 	</developers>
 
 	<mailingLists>
@@ -145,7 +166,193 @@
 		<url>http://www.cs.manchester.ac.uk/</url>
 	</organization>
 
-	<!--	<profiles>-->
+		<profiles>
+
+			<!-- OSSRH Related Profiles (Start) -->
+
+			<profile>
+				<id>emptySourceJavadocOSSRH</id>
+
+				<activation>
+					<property>
+						<name>repositoryIdOSSRH</name>
+						<value>true</value>
+					</property>
+				</activation>
+
+				<distributionManagement>
+					<snapshotRepository>
+						<id>ossrh</id>
+						<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+					</snapshotRepository>
+					<repository>
+						<id>maven-releases</id>
+						<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+					</repository>
+				</distributionManagement>
+
+				<build>
+					<plugins>
+						<!-- Generate empty Java Doc jar and source jar -->
+<!--						<plugin>-->
+<!--							<groupId>org.apache.maven.plugins</groupId>-->
+<!--							<artifactId>maven-source-plugin</artifactId>-->
+<!--							<executions>-->
+<!--								<execution>-->
+<!--									<id>sources-jar</id>-->
+<!--									<phase>package</phase>-->
+<!--									<goals>-->
+<!--										<goal>jar</goal>-->
+<!--									</goals>-->
+<!--								</execution>-->
+<!--							</executions>-->
+<!--						</plugin>-->
+
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-javadoc-plugin</artifactId>
+							<configuration>
+								<sourcepath>${project.build.directory}/empty</sourcepath>
+							</configuration>
+							<executions>
+								<execution>
+									<id>javadoc-jar</id>
+									<phase>package</phase>
+									<goals>
+										<goal>jar</goal>
+									</goals>
+								</execution>
+							</executions>
+						</plugin>
+
+					</plugins>
+				</build>
+
+			</profile>
+
+			<profile>
+				<id>sourceJavadocOSSRH</id>
+
+				<activation>
+					<property>
+						<name>repositoryIdOSSRH</name>
+						<value>true</value>
+					</property>
+				</activation>
+
+				<distributionManagement>
+					<snapshotRepository>
+						<id>ossrh</id>
+						<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+					</snapshotRepository>
+					<repository>
+						<id>maven-releases</id>
+						<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+					</repository>
+				</distributionManagement>
+
+				<build>
+					<plugins>
+						<!-- Generate Java Doc jar -->
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-javadoc-plugin</artifactId>
+							<configuration>
+								<doclint>none</doclint>
+								<source>${java.version}</source>
+								<release>${java.version}</release>
+							</configuration>
+							<executions>
+								<execution>
+									<id>jar</id>
+									<phase>package</phase>
+									<goals>
+										<goal>jar</goal>
+									</goals>
+								</execution>
+							</executions>
+						</plugin>
+
+						<!-- Source Files -->
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-source-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>attach-sources</id>
+									<phase>package</phase>
+									<goals>
+										<goal>jar</goal>
+									</goals>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</build>
+
+			</profile>
+
+			<profile>
+				<id>stageOSSRH</id>
+
+				<activation>
+					<property>
+						<name>repositoryIdOSSRH</name>
+						<value>true</value>
+					</property>
+				</activation>
+
+				<distributionManagement>
+					<snapshotRepository>
+						<id>ossrh</id>
+						<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+					</snapshotRepository>
+					<repository>
+						<id>maven-releases</id>
+						<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+					</repository>
+				</distributionManagement>
+
+				<build>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-gpg-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>sign-artifacts</id>
+									<phase>verify</phase>
+									<goals>
+										<goal>sign</goal>
+									</goals>
+								</execution>
+							</executions>
+							<configuration>
+								<gpgArguments>
+									<argument>--pinentry-mode</argument>
+									<argument>loopback</argument>
+									<argument>--yes</argument>
+									<argument>--verbose</argument>
+								</gpgArguments>
+							</configuration>
+						</plugin>
+
+						<plugin>
+							<groupId>org.sonatype.plugins</groupId>
+							<artifactId>nexus-staging-maven-plugin</artifactId>
+							<extensions>true</extensions>
+							<configuration>
+								<serverId>ossrh</serverId>
+								<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+								<autoReleaseAfterClose>false</autoReleaseAfterClose>
+							</configuration>
+						</plugin>
+
+					</plugins>
+				</build>
+			</profile>
+
+			<!-- OSSRH Related Prfoiles (End) -->
 
 	<!--		<profile>-->
 	<!--			<id>release</id>-->
@@ -229,7 +436,7 @@
 	<!--			</build>-->
 	<!--		</profile>-->
 
-	<!--	</profiles>-->
+		</profiles>
 
 	<build>
 		<plugins>
@@ -248,19 +455,19 @@
 
 			<!-- We need to configure the Source Plugin for deploying the
 			sources. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>3.3.0</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-source-plugin</artifactId>-->
+<!--				<version>3.3.0</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>attach-sources</id>-->
+<!--						<goals>-->
+<!--							<goal>jar</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 
 			<!-- We need to configure the Javadoc Plugin for deploying the
 			Javadocs -->
@@ -401,6 +608,15 @@
 						</execution>
 					</executions>
 				</plugin>
+
+				<!-- This plugin stage the artifacts to the OSSRH Repository, release and sync them with Central Repository -->
+				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>${nexus-staging-maven-plugin.version}</version>
+				</plugin>
+
+
 				<!-- <plugin>
 					<groupId>com.github.siom79.japicmp</groupId>
 				<artifactId>japicmp-maven-plugin</artifactId>
