@@ -194,19 +194,19 @@
 				<build>
 					<plugins>
 						<!-- Generate empty Java Doc jar and source jar -->
-<!--						<plugin>-->
-<!--							<groupId>org.apache.maven.plugins</groupId>-->
-<!--							<artifactId>maven-source-plugin</artifactId>-->
-<!--							<executions>-->
-<!--								<execution>-->
-<!--									<id>sources-jar</id>-->
-<!--									<phase>package</phase>-->
-<!--									<goals>-->
-<!--										<goal>jar</goal>-->
-<!--									</goals>-->
-<!--								</execution>-->
-<!--							</executions>-->
-<!--						</plugin>-->
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-source-plugin</artifactId>
+							<executions>
+								<execution>
+									<id>sources-jar</id>
+									<phase>package</phase>
+									<goals>
+										<goal>jar</goal>
+									</goals>
+								</execution>
+							</executions>
+						</plugin>
 
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
