@@ -43,7 +43,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.Logger.LoggerFactory;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -83,7 +84,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 class OBOConsumer implements OBOParserHandler {
 
-    private static final Logger logger = Logger.getLogger(OBOConsumer.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(OBOConsumer.class.getName());
     private static final String IMPORT_TAG_NAME = "import";
     @Nonnull
     private OWLOntologyLoaderConfiguration configuration;
