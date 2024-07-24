@@ -27,7 +27,6 @@
 		<caffeine.version>3.1.8</caffeine.version>
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 		<maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-		<maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
 	</properties>
 
 	<modules>
@@ -200,8 +199,12 @@
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-jar-plugin</artifactId>
-							<version>${maven-jar-plugin.version}</version>
 							<configuration>
+								<archive>
+									<manifestEntries>
+										<Automatic-Module-Name>dev.ikm.owlapi.provider.websocket.server</Automatic-Module-Name>
+									</manifestEntries>
+								</archive>
 							</configuration>
 							<executions>
 								<execution>
