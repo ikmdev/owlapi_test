@@ -1,0 +1,84 @@
+name: Build Workflow
+
+run-name: 'Build Workflow -- ${{ github.head_ref || github.ref_name }}'
+
+# Workflow trigger
+on:
+  push:
+  pull_request:
+
+# Define environment parameters
+env:
+  MAVEN_SETTING: '/home/ec2-user/maven/.m2/settings.xml'
+
+# Define jobs within the workflow
+jobs:
+  # Main & feature branch
+  build-job:
+    name: Build Job
+    runs-on: self-hosted
+    if: github.repository_owner == 'ikmdev'
+
+    steps:
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1.14.0
+        with:
+          checkout-fetch-depth: 0
+          java-version: 21
+          java-distribution: adopt
+          maven-version: 3.9.0
+
+      - name: Maven Build
+        if: github.ref == 'refs/heads/main'
+        run: |
+          mvn clean install \
+            -s ${{env.MAVEN_SETTING}} \
+            --batch-mode \
+            -e \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            -PcodeQuality
+
+      - name: Maven Build -- Feature Branch
+        if: github.ref != 'refs/heads/main'
+        run: |
+          java --version
+          mvn clean install \
+            -s ${{env.MAVEN_SETTING}} \
+            --batch-mode \
+            -e \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            -Denforcer.skip=true \
+            -PcodeQuality
+
+  # Forked
+  forked-repo-build-job:
+    name: Forked Repo Build Job
+    runs-on: ubuntu-latest
+    if: github.repository_owner != 'ikmdev' || github.event.repository.fork == 'true'
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '21'
+
+      - name: Maven Build
+        if: github.ref == 'refs/heads/main'
+        run: |
+          mvn clean install \
+            --batch-mode \
+            -e \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            -PcodeQuality
+
+      - name: Maven Build -- Feature Branch
+        if: github.ref != 'refs/heads/main'
+        run: |
+          java --version
+          mvn clean install \
+            --batch-mode \
+            -e \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            -PcodeQuality
