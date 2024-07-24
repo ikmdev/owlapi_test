@@ -27,7 +27,7 @@
 			<artifactId>javax.inject</artifactId>
 		</dependency>
 	</dependencies>
-	<!--<build>
+	<build>
 		<plugins>
 			<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
@@ -35,12 +35,12 @@
 			<configuration>
 				<archive>
 					<manifestEntries>
-						<Automatic-Module-Name>dev.ikm.owlapi_test.provider.websocket.server</Automatic-Module-Name>
+						<Automatic-Module-Name>dev.ikm.owlapi_test-impl.provider.websocket.server</Automatic-Module-Name>
 					</manifestEntries>
 				</archive>
 			</configuration>
 			</plugin>
 		</plugins>
-	</build>-->
+	</build>
 
 </project>
