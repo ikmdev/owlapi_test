@@ -26,6 +26,8 @@
 		<slf4j.version>2.0.7</slf4j.version>
 		<caffeine.version>3.1.8</caffeine.version>
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
+		<maven-source-plugin.version>3.3.0</maven-source-plugin.version>
 	</properties>
 
 	<modules>
@@ -193,34 +195,38 @@
 
 				<build>
 					<plugins>
-						<!-- Generate empty Java Doc jar and source jar -->
-<!--						<plugin>-->
-<!--							<groupId>org.apache.maven.plugins</groupId>-->
-<!--							<artifactId>maven-source-plugin</artifactId>-->
-<!--							<executions>-->
-<!--								<execution>-->
-<!--									<id>sources-jar</id>-->
-<!--									<phase>package</phase>-->
-<!--									<goals>-->
-<!--										<goal>jar</goal>-->
-<!--									</goals>-->
-<!--								</execution>-->
-<!--							</executions>-->
-<!--						</plugin>-->
 
+						<!-- Generate empty Java Doc jar and source jar -->
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-javadoc-plugin</artifactId>
-							<configuration>
-								<sourcepath>${project.build.directory}/empty</sourcepath>
-							</configuration>
+							<artifactId>maven-jar-plugin</artifactId>
 							<executions>
+								<execution>
+									<id>default-jar</id>
+									<phase>package</phase>
+									<goals>
+										<goal>jar</goal>
+									</goals>
+								</execution>
 								<execution>
 									<id>javadoc-jar</id>
 									<phase>package</phase>
 									<goals>
 										<goal>jar</goal>
 									</goals>
+									<configuration>
+										<classifier>javadoc</classifier>
+									</configuration>
+								</execution>
+								<execution>
+									<id>sources-jar</id>
+									<phase>package</phase>
+									<goals>
+										<goal>jar</goal>
+									</goals>
+									<configuration>
+										<classifier>sources</classifier>
+									</configuration>
 								</execution>
 							</executions>
 						</plugin>
@@ -351,90 +357,6 @@
 					</plugins>
 				</build>
 			</profile>
-
-			<!-- OSSRH Related Prfoiles (End) -->
-
-	<!--		<profile>-->
-	<!--			<id>release</id>-->
-	<!--			<activation>-->
-	<!--				<activeByDefault>false</activeByDefault>-->
-	<!--				<property>-->
-	<!--					<name>performRelease</name>-->
-	<!--					<value>true</value>-->
-	<!--				</property>-->
-	<!--			</activation>-->
-	<!--			<build>-->
-	<!--				<plugins>-->
-	<!--					 We need the GPG Plugin to self-sign the jar files. A valid
-	signature -->
-	<!--						for the jar files is a requirement for deploying to Maven Central. -->
-	<!--					<plugin>-->
-	<!--						<groupId>org.apache.maven.plugins</groupId>-->
-	<!--						<artifactId>maven-gpg-plugin</artifactId>-->
-	<!--						<version>1.6</version>-->
-	<!--						<executions>-->
-	<!--							<execution>-->
-	<!--								<id>sign-artifacts</id>-->
-	<!--								<phase>verify</phase>-->
-	<!--								<goals>-->
-	<!--									<goal>sign</goal>-->
-	<!--								</goals>-->
-	<!--							</execution>-->
-	<!--						</executions>-->
-	<!--					</plugin>-->
-	<!--					<plugin>-->
-	<!--						<groupId>org.apache.felix</groupId>-->
-	<!--						<artifactId>maven-bundle-plugin</artifactId>-->
-	<!--						<version>3.3.0</version>-->
-	<!--						<extensions>true</extensions>-->
-	<!--						<configuration>-->
-	<!--							<instructions>-->
-	<!--								<Implementation-Version>${project.version}</Implementation-Version>-->
-	<!--
-	<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>-->
-	<!--								<Bundle-Name>${project.artifactId}</Bundle-Name>-->
-	<!--								<Export-Package>{local-packages}</Export-Package>-->
-	<!--							</instructions>-->
-	<!--						</configuration>-->
-	<!--					</plugin>-->
-	<!--					 We need to configure the Source Plugin for deploying the sources. -->
-	<!--					<plugin>-->
-	<!--						<groupId>org.apache.maven.plugins</groupId>-->
-	<!--						<artifactId>maven-source-plugin</artifactId>-->
-	<!--						<version>3.0.1</version>-->
-	<!--						<executions>-->
-	<!--							<execution>-->
-	<!--								<id>attach-sources</id>-->
-	<!--								<goals>-->
-	<!--									<goal>jar</goal>-->
-	<!--								</goals>-->
-	<!--							</execution>-->
-	<!--						</executions>-->
-	<!--					</plugin>-->
-
-	<!--					 We need to configure the Javadoc Plugin for deploying the Javadocs -->
-	<!--					<plugin>-->
-	<!--						<groupId>org.apache.maven.plugins</groupId>-->
-	<!--						<artifactId>maven-javadoc-plugin</artifactId>-->
-	<!--						<version>3.0.1</version>-->
-	<!--						<configuration>-->
-	<!--							<show>public</show>-->
-	<!--						</configuration>-->
-	<!--						<executions>-->
-	<!--							<execution>-->
-	<!--								<id>attach-javadocs</id>-->
-	<!--								<goals>-->
-	<!--									<goal>jar</goal>-->
-	<!--								</goals>-->
-	<!--								<configuration>-->
-	<!--									<skip>${no-javadoc}</skip>-->
-	<!--								</configuration>-->
-	<!--							</execution>-->
-	<!--						</executions>-->
-	<!--					</plugin>-->
-	<!--				</plugins>-->
-	<!--			</build>-->
-	<!--		</profile>-->
 
 		</profiles>
 
@@ -616,46 +538,8 @@
 					<artifactId>nexus-staging-maven-plugin</artifactId>
 					<version>${nexus-staging-maven-plugin.version}</version>
 				</plugin>
-
-
-				<!-- <plugin>
-					<groupId>com.github.siom79.japicmp</groupId>
-				<artifactId>japicmp-maven-plugin</artifactId>
-				<version>0.12.0</version>
-					<configuration>
-						<oldVersion>
-				<dependency>
-								<groupId>${project.groupId}</groupId>
-				<artifactId>${project.artifactId}</artifactId>
-				<version>${last.japicmp.compare.version}</version>
-				<type>${project.packaging}</type>
-							</dependency>
-				</oldVersion>
-						<newVersion>
-							<file>
-				<path>${project.build.directory}/${project.artifactId}-${project.version}.jar</path>
-				</file>
-						</newVersion>
-						<parameter>
-				<onlyModified>true</onlyModified>
-				<ignoreMissingClasses>true</ignoreMissingClasses>
-				<ignoreMissingClassesByRegularExpressions>
-				<ignoreMissingClassesByRegularExpression>javax.activation.*</ignoreMissingClassesByRegularExpression>
-				</ignoreMissingClassesByRegularExpressions>
-						</parameter>
-				</configuration>
-					<executions>
-						<execution>
-				<phase>verify</phase>
-							<goals>
-								<goal>cmp</goal>
-				</goals>
-						</execution>
-					</executions>
-				</plugin> -->
 			</plugins>
 		</pluginManagement>
-
 	</build>
 
 
