@@ -26,6 +26,8 @@
 		<slf4j.version>2.0.7</slf4j.version>
 		<caffeine.version>3.1.8</caffeine.version>
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+		<maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+		<maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
 	</properties>
 
 	<modules>
@@ -198,12 +200,8 @@
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-jar-plugin</artifactId>
+							<version>${maven-jar-plugin.version}</version>
 							<configuration>
-								<archive>
-									<manifestaEntries>
-										<Automatic-Module-Name>module-inf0</Automatic-Module-Name>
-									</manifestaEntries>
-								</archive>
 							</configuration>
 							<executions>
 								<execution>
@@ -398,27 +396,27 @@
 
 			<!-- We need to configure the Javadoc Plugin for deploying the
 			Javadocs -->
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-javadoc-plugin</artifactId>
-							<version>3.8.0</version>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.8.0</version>
+					<configuration>
+						<show>public</show>
+						<doclint>none</doclint>
+						<sourcepath>src/main/java</sourcepath>
+					</configuration>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
 							<configuration>
-								<show>public</show>
-								<doclint>none</doclint>
-								<sourcepath>src/main/java</sourcepath>
+								<skip>false</skip>
 							</configuration>
-							<executions>
-								<execution>
-									<id>attach-javadocs</id>
-									<goals>
-										<goal>jar</goal>
-									</goals>
-									<configuration>
-										<skip>false</skip>
-									</configuration>
-								</execution>
-							</executions>
-						</plugin>
+						</execution>
+					</executions>
+				</plugin>
 			<!-- The Surefire Plugin is for error reporting. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -536,6 +534,11 @@
 							</configuration>
 						</execution>
 					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven-gpg-plugin.version}</version>
 				</plugin>
 
 				<!-- This plugin stage the artifacts to the OSSRH Repository, release and sync them with Central Repository -->
