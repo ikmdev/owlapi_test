@@ -8,12 +8,12 @@
 		<maven>3.0.5</maven>
 	</prerequisites>
 
-	<groupId>dev.ikm.owlapi</groupId>
-	<artifactId>owlapi-parent</artifactId>
+	<groupId>dev.ikm.owlapi_test</groupId>
+	<artifactId>owlapi_test-parent</artifactId>
 	<version>4.9.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>OWLAPI</name>
+	<name>OWLAPI_TEST</name>
 	<description>The OWL API is a Java API and reference implementation for
 		creating, manipulating and serialising OWL Ontologies. The latest
 		version of the API is focused towards OWL 2</description>
@@ -202,7 +202,7 @@
 							<configuration>
 								<archive>
 									<manifestEntries>
-										<Automatic-Module-Name>dev.ikm.owlapi.provider.websocket.server</Automatic-Module-Name>
+										<Automatic-Module-Name>dev.ikm.owlapi_test.provider.websocket.server</Automatic-Module-Name>
 									</manifestEntries>
 								</archive>
 							</configuration>
@@ -560,7 +560,7 @@
 <!--	<connection>scm:git:git://github.com/owlcs/owlapi.git</connection>-->
 <!--	<developerConnection>scm:git:git@github.com:owlcs/owlapi.git</developerConnection>-->
 <!--		<url>https://github.com/owlcs/owlapi</url>-->
-		<url>http://www.github.com/ikmdev/owlapi</url>
+		<url>http://www.github.com/ikmdev/owlapi_test</url>
 	</scm>
 
 </project>
