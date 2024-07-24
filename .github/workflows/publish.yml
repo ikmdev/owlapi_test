@@ -44,7 +44,7 @@ jobs:
 
       - name: Deploy To Nexus
         run: |
-          mvn deploy \
+          mvn clean install -PcodeQuality \
              --batch-mode \
              -e \
              -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
