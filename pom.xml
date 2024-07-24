@@ -400,6 +400,7 @@
 							<configuration>
 								<show>public</show>
 								<doclint>none</doclint>
+								<sourcepath>src/main/java</sourcepath>
 							</configuration>
 							<executions>
 								<execution>
