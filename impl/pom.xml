@@ -25,7 +25,6 @@
 		<dependency>
 			<groupId>dev.ikm.jpms</groupId>
 			<artifactId>javax.inject</artifactId>
-			<classifier>javadoc</classifier>
 		</dependency>
 	</dependencies>
 
