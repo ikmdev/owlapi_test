@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>owlapi-api</artifactId>
-	<name>OWLAPI :: Interfaces</name>
+	<artifactId>owlapi_test-api</artifactId>
+	<name>OWLAPI_TEST :: Interfaces</name>
 
 	<parent>
-		<groupId>dev.ikm.owlapi</groupId>
-		<artifactId>owlapi-parent</artifactId>
+		<groupId>dev.ikm.owlapi_test</groupId>
+		<artifactId>owlapi_test-parent</artifactId>
 		<version>4.9.0-SNAPSHOT</version>
 	</parent>
 
