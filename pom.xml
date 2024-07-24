@@ -200,9 +200,9 @@
 							<artifactId>maven-jar-plugin</artifactId>
 							<configuration>
 								<archive>
-									<manifestation>
-										<Automatic-Module-Name>dev.ikm.owlapi</Automatic-Module-Name>
-									</manifestation>
+									<manifestaEntries>
+										<Automatic-Module-Name>module-inf0</Automatic-Module-Name>
+									</manifestaEntries>
 								</archive>
 							</configuration>
 							<executions>
