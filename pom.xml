@@ -27,6 +27,7 @@
 		<caffeine.version>3.1.8</caffeine.version>
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 		<maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+		<maven-enforcer-plugin.version>3.3.0</maven-enforcer-plugin.version>
 	</properties>
 
 	<modules>
@@ -383,13 +384,21 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.3.0</version>
+				<version>${maven-enforcer-plugin.version}</version>
 				<executions>
 					<execution>
-						<id>enforce-versions</id>
+						<id>enforce-maven</id>
 						<goals>
 							<goal>enforce</goal>
 						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>3.0.5</version>
+								</requireMavenVersion>
+							</rules>
+							<failFast>true</failFast>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
