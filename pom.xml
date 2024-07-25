@@ -28,6 +28,9 @@
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 		<maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
 		<maven-enforcer-plugin.version>3.3.0</maven-enforcer-plugin.version>
+		<maven.clean-plugin.version>3.1.0</maven.clean-plugin.version>
+		<maven.install-plugin.version>3.1.1</maven.install-plugin.version>
+		<maven.deploy-plugin.version>3.1.1</maven.deploy-plugin.version>
 	</properties>
 
 	<modules>
@@ -538,6 +541,78 @@
 							</configuration>
 						</execution>
 					</executions>
+				</plugin>
+				<!--======================================================-->
+				<!-- Clean Lifecycle                                      -->
+				<!--======================================================-->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>${maven.clean-plugin.version}</version>
+				</plugin>
+
+				<!--======================================================-->
+				<!-- POM Lifecycle                                        -->
+				<!--======================================================-->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${maven.install-plugin.version}</version>
+				</plugin>
+
+				<!--======================================================-->
+				<!-- INSTALL Lifecycle                                        -->
+				<!--======================================================-->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>${maven.deploy-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>${maven-source-plugin.version}</version>
+				</plugin>
+
+				<!--======================================================-->
+				<!-- Command-Line tooling                                 -->
+				<!--======================================================-->
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-plugin-plugin</artifactId>
+					<version>${maven.plugin-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.wrapper</groupId>
+					<artifactId>maven-wrapper</artifactId>
+					<version>${maven.wrapper-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>${maven.gpg-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.commonjava.maven.plugins</groupId>
+					<artifactId>directory-maven-plugin</artifactId>
+					<version>${maven.directory.plugin}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>${maven.dependency-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>${maven.enforcer-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
