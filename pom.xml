@@ -628,8 +628,8 @@
 
 	<distributionManagement>
 		<repository>
-			<id>maven-releases</id>
-			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<id>maven-snapshot</id>
+			<url>https://nexus.build.tinkarbuild.com/repository/maven-snapshots</url>
 			</repository>
 	</distributionManagement>
 
@@ -639,7 +639,7 @@
 <!--	<connection>scm:git:git://github.com/owlcs/owlapi.git</connection>-->
 <!--	<developerConnection>scm:git:git@github.com:owlcs/owlapi.git</developerConnection>-->
 <!--		<url>https://github.com/owlcs/owlapi</url>-->
-		<url>http://www.github.com/ikmdev/owlapi</url>
+		<url>http://www.github.com/ikmdev/owlapi_test</url>
 	</scm>
 
 </project>
