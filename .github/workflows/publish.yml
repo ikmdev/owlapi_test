@@ -15,7 +15,8 @@ jobs:
   publish-artifacts:
     name: Publish Artifacts
     runs-on: self-hosted
-    if: github.event.workflow_run.conclusion == 'success' && github.repository_owner == 'ikmdev'
+#    if: github.event.workflow_run.conclusion == 'success' && github.repository_owner == 'ikmdev'
+    if: github.repository_owner == 'ikmdev'
 
     env:
       ARTIFACT_REPOSITORY_ID: "maven-snapshots"
