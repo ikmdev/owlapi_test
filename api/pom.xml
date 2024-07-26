@@ -23,7 +23,7 @@
 		</dependency>
 	</dependencies>
 
-	<!--<build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -32,12 +32,12 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Automatic-Module-Name>${project.groupId}.api</Automatic-Module-Name>
+							<Automatic-Module-Name>org.semanticweb.owlapi.api</Automatic-Module-Name>
 						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>-->
+	</build>
 
 </project>
