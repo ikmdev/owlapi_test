@@ -4,10 +4,6 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<prerequisites>
-		<maven>3.0.5</maven>
-	</prerequisites>
-
 	<groupId>dev.ikm.owlapi_test</groupId>
 	<artifactId>owlapi_test-parent</artifactId>
 	<version>4.9.0-SNAPSHOT</version>
@@ -388,22 +384,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<version>${maven-enforcer-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>enforce-bytecode-version</id>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<configuration>
-							<rules>
-								<enforceBytecodeVersion>
-									<maxJdkVersion>1.8</maxJdkVersion>
-								</enforceBytecodeVersion>
-							</rules>
-							<fail>false</fail>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 
 			<!-- We need to configure the Source Plugin for deploying the
@@ -630,11 +610,6 @@
 					<version>${maven.dependency-plugin.version}</version>
 				</plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>${maven.enforcer-plugin.version}</version>
-				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-gpg-plugin</artifactId>
