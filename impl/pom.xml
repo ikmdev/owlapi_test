@@ -37,7 +37,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Automatic-Module-Name>${project.groupId}.impl</Automatic-Module-Name>
+							<Automatic-Module-Name>org.semanticweb.owlapi.impl</Automatic-Module-Name>
 						</manifestEntries>
 					</archive>
 				</configuration>
