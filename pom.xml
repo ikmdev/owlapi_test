@@ -199,13 +199,13 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-jar-plugin</artifactId>
-						<configuration>
+						<!--<configuration>
 							<archive>
 								<manifestEntries>
-									<Automatic-Module-Name>dev.ikm.owlapi.provider.websocket.server</Automatic-Module-Name>
+									<Automatic-Module-Name>dev.ikm.owlapi_test.provider.websocket.server</Automatic-Module-Name>
 								</manifestEntries>
 							</archive>
-						</configuration>
+						</configuration>-->
 						<executions>
 							<execution>
 								<id>default-jar</id>
