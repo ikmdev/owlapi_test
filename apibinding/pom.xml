@@ -3,29 +3,29 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>owlapi_test-apibinding</artifactId>
-	<name>OWLAPI_TEST Binding and Config</name>
+	<artifactId>owlapi_test_apibinding</artifactId>
+	<name>OWLAPI Binding and Config</name>
 
 	<parent>
-		<groupId>dev.ikm.owlapi_test</groupId>
-		<artifactId>owlapi_test-parent</artifactId>
+		<groupId>dev.ikm.owlapi</groupId>
+		<artifactId>owlapi_test_parent</artifactId>
 		<version>4.9.0-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi_test-api</artifactId>
+			<artifactId>owlapi_test_api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi_test-impl</artifactId>
+			<artifactId>owlapi_test_impl</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>owlapi_test-parsers</artifactId>
+			<artifactId>owlapi_test_parsers</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
