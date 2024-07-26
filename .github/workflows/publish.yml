@@ -3,11 +3,12 @@ name: Publish Artifacts Workflow
 run-name: 'Publish Artifacts -- ${{github.event.workflow_run.head_branch}}'
 
 on:
-  workflow_run:
-    workflows:
-      - Build Workflow
-    types:
-      - completed
+  push:
+#  workflow_run:
+#    workflows:
+#      - Build Workflow
+#    types:
+#      - completed
 
 
 jobs:

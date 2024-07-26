@@ -416,6 +416,7 @@
 					<executions>
 						<execution>
 							<id>attach-javadocs</id>
+							<phase>compile</phase>
 							<goals>
 								<goal>jar</goal>
 							</goals>
