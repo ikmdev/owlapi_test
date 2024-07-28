@@ -28,7 +28,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Automatic-Module-Name>${project.groupId}.parsers</Automatic-Module-Name>
+							<Automatic-Module-Name>org.semanticweb.owlapi.parsers</Automatic-Module-Name>
 						</manifestEntries>
 					</archive>
 				</configuration>
