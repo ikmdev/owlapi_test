@@ -39,7 +39,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Automatic-Module-Name>${project.groupId}.apibinding</Automatic-Module-Name>
+							<Automatic-Module-Name>org.semanticweb.owlapi.apibinding</Automatic-Module-Name>
 						</manifestEntries>
 					</archive>
 				</configuration>
