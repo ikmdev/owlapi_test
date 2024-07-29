@@ -32,7 +32,7 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Automatic-Module-Name>${project.groupId}.api</Automatic-Module-Name>
+							<Automatic-Module-Name>${project.groupId}.owlapi_test_api</Automatic-Module-Name>
 						</manifestEntries>
 					</archive>
 				</configuration>
