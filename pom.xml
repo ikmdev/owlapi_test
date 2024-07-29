@@ -408,7 +408,6 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.8.0</version>
 					<configuration>
 						<show>public</show>
 						<doclint>none</doclint>
@@ -623,6 +622,19 @@
 					<groupId>org.sonatype.plugins</groupId>
 					<artifactId>nexus-staging-maven-plugin</artifactId>
 					<version>${nexus-staging-maven-plugin.version}</version>
+				</plugin>
+
+				<!-- This plugin contains various small independent goals to assist with the Maven build lifecycle -->
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>${build-helper-maven-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

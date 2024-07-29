@@ -46,17 +46,17 @@ jobs:
         if:   github.event.workflow_run.event != 'pull_request'
         uses: actions/checkout@v4
 
-#      - name: Deploy To Nexus
-#        run: |
-#          mvn -X deploy \
-#             --batch-mode \
-#             -e \
-#             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-#             -PcodeQuality \
-#             -DskipTests \
-#             -DskipITs \
-#             -Dmaven.main.skip \
-#             -Dmaven.test.skip \
-#             -s ${{env.MAVEN_FILE}} \
-#             -DrepositoryId='${{env.ARTIFACT_REPOSITORY_ID}}' \
-#             -Dgpg.passphrase=${{secrets.GPG_PASSPHRASE}}
+      - name: Deploy To Nexus
+        run: |
+          mvn -X deploy \
+             --batch-mode \
+             -e \
+             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+             -PcodeQuality \
+             -DskipTests \
+             -DskipITs \
+             -Dmaven.main.skip \
+             -Dmaven.test.skip \
+             -s ${{env.MAVEN_FILE}} \
+             -DrepositoryId='${{env.ARTIFACT_REPOSITORY_ID}}' \
+             -Dgpg.passphrase=${{secrets.GPG_PASSPHRASE}}
