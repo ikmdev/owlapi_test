@@ -208,6 +208,13 @@
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-jar-plugin</artifactId>
 						<version>3.0.2</version>
+						<configuration>
+							<archive>
+								<manifestEntries>
+									<Automatic-Module-Name>${project.groupId}.owlapi_test_parent</Automatic-Module-Name>
+								</manifestEntries>
+							</archive>
+						</configuration>
 						<executions>
 							<execution>
 								<id>default-jar</id>
