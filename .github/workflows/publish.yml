@@ -53,4 +53,5 @@ jobs:
              -e \
              -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
              -DskipTests \
-             -DskipITs 
+             -DskipITs \
+             -s ${{env.MAVEN_FILE}}         
