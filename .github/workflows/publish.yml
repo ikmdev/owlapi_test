@@ -51,12 +51,12 @@ jobs:
           mvn -X deploy \
              --batch-mode \
              -e \
-             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn 
 #             -PcodeQuality \
 #             -DskipTests \
 #             -DskipITs \
 #             -Dmaven.main.skip \
 #             -Dmaven.test.skip \
-             -s ${{env.MAVEN_FILE}} 
+#             -s ${{env.MAVEN_FILE}} \
 #             -DrepositoryId='${{env.ARTIFACT_REPOSITORY_ID}}' \
 #             -Dgpg.passphrase=${{secrets.GPG_PASSPHRASE}}
