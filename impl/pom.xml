@@ -27,4 +27,5 @@
 			<artifactId>javax.inject</artifactId>
 		</dependency>
 	</dependencies>
+
 </project>

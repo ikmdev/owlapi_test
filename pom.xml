@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<prerequisites>
+		<maven>3.0.5</maven>
+	</prerequisites>
 
 	<groupId>dev.ikm.owlapi</groupId>
 	<artifactId>owlapi_test_parent</artifactId>
-	<version>4.10.0-SNAPSHOT</version>
+	<version>4.8.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>OWLAPI</name>
@@ -17,24 +21,11 @@
 
 
 	<properties>
-		<!-- Project Encoding -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>21</java.version>
 		<slf4j.version>2.0.7</slf4j.version>
 		<caffeine.version>3.1.8</caffeine.version>
 		<nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
-		<maven.gpg-plugin.version>3.1.0</maven.gpg-plugin.version>
-		<maven.enforcer-plugin.version>3.3.0</maven.enforcer-plugin.version>
-		<maven.clean-plugin.version>3.1.0</maven.clean-plugin.version>
-		<maven.install-plugin.version>3.1.1</maven.install-plugin.version>
-		<maven.deploy-plugin.version>3.1.1</maven.deploy-plugin.version>
-		<build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
-		<maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
-		<maven-source-plugin.version>3.3.0</maven-source-plugin.version>
 	</properties>
 
 	<modules>
@@ -202,39 +193,34 @@
 
 			<build>
 				<plugins>
-
 					<!-- Generate empty Java Doc jar and source jar -->
+					<!--						<plugin>-->
+					<!--							<groupId>org.apache.maven.plugins</groupId>-->
+					<!--							<artifactId>maven-source-plugin</artifactId>-->
+					<!--							<executions>-->
+					<!--								<execution>-->
+					<!--									<id>sources-jar</id>-->
+					<!--									<phase>package</phase>-->
+					<!--									<goals>-->
+					<!--										<goal>jar</goal>-->
+					<!--									</goals>-->
+					<!--								</execution>-->
+					<!--							</executions>-->
+					<!--						</plugin>-->
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-jar-plugin</artifactId>
-						<version>3.4.2</version>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<configuration>
+							<sourcepath>${project.build.directory}/empty</sourcepath>
+						</configuration>
 						<executions>
-							<execution>
-								<id>default-jar</id>
-								<phase>package</phase>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
 							<execution>
 								<id>javadoc-jar</id>
 								<phase>package</phase>
 								<goals>
 									<goal>jar</goal>
 								</goals>
-								<configuration>
-									<classifier>javadoc</classifier>
-								</configuration>
-							</execution>
-							<execution>
-								<id>sources-jar</id>
-								<phase>package</phase>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-								<configuration>
-									<classifier>sources</classifier>
-								</configuration>
 							</execution>
 						</executions>
 					</plugin>
@@ -366,6 +352,90 @@
 			</build>
 		</profile>
 
+		<!-- OSSRH Related Prfoiles (End) -->
+
+		<!--		<profile>-->
+		<!--			<id>release</id>-->
+		<!--			<activation>-->
+		<!--				<activeByDefault>false</activeByDefault>-->
+		<!--				<property>-->
+		<!--					<name>performRelease</name>-->
+		<!--					<value>true</value>-->
+		<!--				</property>-->
+		<!--			</activation>-->
+		<!--			<build>-->
+		<!--				<plugins>-->
+		<!--					 We need the GPG Plugin to self-sign the jar files. A valid
+        signature -->
+		<!--						for the jar files is a requirement for deploying to Maven Central. -->
+		<!--					<plugin>-->
+		<!--						<groupId>org.apache.maven.plugins</groupId>-->
+		<!--						<artifactId>maven-gpg-plugin</artifactId>-->
+		<!--						<version>1.6</version>-->
+		<!--						<executions>-->
+		<!--							<execution>-->
+		<!--								<id>sign-artifacts</id>-->
+		<!--								<phase>verify</phase>-->
+		<!--								<goals>-->
+		<!--									<goal>sign</goal>-->
+		<!--								</goals>-->
+		<!--							</execution>-->
+		<!--						</executions>-->
+		<!--					</plugin>-->
+		<!--					<plugin>-->
+		<!--						<groupId>org.apache.felix</groupId>-->
+		<!--						<artifactId>maven-bundle-plugin</artifactId>-->
+		<!--						<version>3.3.0</version>-->
+		<!--						<extensions>true</extensions>-->
+		<!--						<configuration>-->
+		<!--							<instructions>-->
+		<!--								<Implementation-Version>${project.version}</Implementation-Version>-->
+		<!--
+        <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>-->
+		<!--								<Bundle-Name>${project.artifactId}</Bundle-Name>-->
+		<!--								<Export-Package>{local-packages}</Export-Package>-->
+		<!--							</instructions>-->
+		<!--						</configuration>-->
+		<!--					</plugin>-->
+		<!--					 We need to configure the Source Plugin for deploying the sources. -->
+		<!--					<plugin>-->
+		<!--						<groupId>org.apache.maven.plugins</groupId>-->
+		<!--						<artifactId>maven-source-plugin</artifactId>-->
+		<!--						<version>3.0.1</version>-->
+		<!--						<executions>-->
+		<!--							<execution>-->
+		<!--								<id>attach-sources</id>-->
+		<!--								<goals>-->
+		<!--									<goal>jar</goal>-->
+		<!--								</goals>-->
+		<!--							</execution>-->
+		<!--						</executions>-->
+		<!--					</plugin>-->
+
+		<!--					 We need to configure the Javadoc Plugin for deploying the Javadocs -->
+		<!--					<plugin>-->
+		<!--						<groupId>org.apache.maven.plugins</groupId>-->
+		<!--						<artifactId>maven-javadoc-plugin</artifactId>-->
+		<!--						<version>3.0.1</version>-->
+		<!--						<configuration>-->
+		<!--							<show>public</show>-->
+		<!--						</configuration>-->
+		<!--						<executions>-->
+		<!--							<execution>-->
+		<!--								<id>attach-javadocs</id>-->
+		<!--								<goals>-->
+		<!--									<goal>jar</goal>-->
+		<!--								</goals>-->
+		<!--								<configuration>-->
+		<!--									<skip>${no-javadoc}</skip>-->
+		<!--								</configuration>-->
+		<!--							</execution>-->
+		<!--						</executions>-->
+		<!--					</plugin>-->
+		<!--				</plugins>-->
+		<!--			</build>-->
+		<!--		</profile>-->
+
 	</profiles>
 
 	<build>
@@ -382,17 +452,13 @@
 					<fork>true</fork>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-			</plugin>
 
 			<!-- We need to configure the Source Plugin for deploying the
 			sources. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>3.3.1</version>
+				<version>3.3.0</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -405,27 +471,26 @@
 
 			<!-- We need to configure the Javadoc Plugin for deploying the
 			Javadocs -->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<configuration>
-						<show>public</show>
-						<doclint>none</doclint>
-						<sourcepath>src/main/java</sourcepath>
-					</configuration>
-					<executions>
-						<execution>
-							<id>attach-javadocs</id>
-							<phase>compile</phase>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-							<configuration>
-								<skip>false</skip>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.5.0</version>
+				<configuration>
+					<show>public</show>
+					<doclint>none</doclint>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<!-- The Surefire Plugin is for error reporting. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -544,78 +609,6 @@
 						</execution>
 					</executions>
 				</plugin>
-				<!--======================================================-->
-				<!-- Clean Lifecycle                                      -->
-				<!--======================================================-->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>${maven.clean-plugin.version}</version>
-				</plugin>
-
-				<!--======================================================-->
-				<!-- POM Lifecycle                                        -->
-				<!--======================================================-->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>${maven.install-plugin.version}</version>
-				</plugin>
-
-				<!--======================================================-->
-				<!-- INSTALL Lifecycle                                        -->
-				<!--======================================================-->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>${maven.deploy-plugin.version}</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>${maven-source-plugin.version}</version>
-				</plugin>
-
-				<!--======================================================-->
-				<!-- Command-Line tooling                                 -->
-				<!--======================================================-->
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-plugin-plugin</artifactId>
-					<version>${maven.plugin-plugin.version}</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.wrapper</groupId>
-					<artifactId>maven-wrapper</artifactId>
-					<version>${maven.wrapper-plugin.version}</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-gpg-plugin</artifactId>
-					<version>${maven.gpg-plugin.version}</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.commonjava.maven.plugins</groupId>
-					<artifactId>directory-maven-plugin</artifactId>
-					<version>${maven.directory.plugin}</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>${maven.dependency-plugin.version}</version>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>${maven.enforcer-plugin.version}</version>
-				</plugin>
 
 				<!-- This plugin stage the artifacts to the OSSRH Repository, release and sync them with Central Repository -->
 				<plugin>
@@ -624,35 +617,53 @@
 					<version>${nexus-staging-maven-plugin.version}</version>
 				</plugin>
 
-				<!-- This plugin contains various small independent goals to assist with the Maven build lifecycle -->
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>build-helper-maven-plugin</artifactId>
-					<version>${build-helper-maven-plugin.version}</version>
-				</plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>${maven-javadoc-plugin.version}</version>
-				</plugin>
+				<!-- <plugin>
+					<groupId>com.github.siom79.japicmp</groupId>
+				<artifactId>japicmp-maven-plugin</artifactId>
+				<version>0.12.0</version>
+					<configuration>
+						<oldVersion>
+				<dependency>
+								<groupId>${project.groupId}</groupId>
+				<artifactId>${project.artifactId}</artifactId>
+				<version>${last.japicmp.compare.version}</version>
+				<type>${project.packaging}</type>
+							</dependency>
+				</oldVersion>
+						<newVersion>
+							<file>
+				<path>${project.build.directory}/${project.artifactId}-${project.version}.jar</path>
+				</file>
+						</newVersion>
+						<parameter>
+				<onlyModified>true</onlyModified>
+				<ignoreMissingClasses>true</ignoreMissingClasses>
+				<ignoreMissingClassesByRegularExpressions>
+				<ignoreMissingClassesByRegularExpression>javax.activation.*</ignoreMissingClassesByRegularExpression>
+				</ignoreMissingClassesByRegularExpressions>
+						</parameter>
+				</configuration>
+					<executions>
+						<execution>
+				<phase>verify</phase>
+							<goals>
+								<goal>cmp</goal>
+				</goals>
+						</execution>
+					</executions>
+				</plugin> -->
 			</plugins>
 		</pluginManagement>
-	</build>
 
-	<distributionManagement>
-		<repository>
-			<id>maven-snapshot</id>
-			<url>https://nexus.build.tinkarbuild.com/repository/maven-snapshots</url>
-			</repository>
-	</distributionManagement>
+	</build>
 
 
 	<!-- Parameters for the Source Code Management system. -->
 	<scm>
-<!--	<connection>scm:git:git://github.com/owlcs/owlapi.git</connection>-->
-<!--	<developerConnection>scm:git:git@github.com:owlcs/owlapi.git</developerConnection>-->
-<!--		<url>https://github.com/owlcs/owlapi</url>-->
+		<!--	<connection>scm:git:git://github.com/owlcs/owlapi.git</connection>-->
+		<!--	<developerConnection>scm:git:git@github.com:owlcs/owlapi.git</developerConnection>-->
+		<!--		<url>https://github.com/owlcs/owlapi</url>-->
 		<url>http://www.github.com/ikmdev/owlapi_test</url>
 	</scm>
 
