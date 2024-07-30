@@ -53,8 +53,8 @@ jobs:
              -e \
              -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
 #             -PcodeQuality \
-             -DskipTests \
-             -DskipITs 
+             -DskipTests 
+#             -DskipITs \
 #             -Dmaven.main.skip \
 #             -Dmaven.test.skip \
 #             -s ${{env.MAVEN_FILE}} \
