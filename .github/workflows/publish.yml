@@ -54,4 +54,6 @@ jobs:
              -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
              -DskipTests \
              -DskipITs \
-             -s ${{env.MAVEN_FILE}}         
+             -s ${{env.MAVEN_FILE}} \
+             -DrepositoryId='${{env.ARTIFACT_REPOSITORY_ID}}' \
+             -Dgpg.passphrase=${{secrets.GPG_PASSPHRASE}}             
